@@ -2,13 +2,21 @@ import { AnyAction } from "redux";
 import {
   INCREASE_ITEM_COUNT,
   DECREASE_ITEM_COUNT,
+  GET_CHECKED_ITEM_COUNT,
 } from "../actions/checkBoxCounter/checkBoxCounterActionsType";
 
-const initialState = {
-  numOfCheckedItem: 0,
+export type checkBoxCounter = {
+  numOfCheckedItems: number;
 };
 
-const checkboxCounterReducer = (state = initialState, action: AnyAction) => {
+const initialState = {
+  numOfCheckedItems: 0,
+};
+
+const checkboxCounterReducer = (
+  state: checkBoxCounter = initialState,
+  action: AnyAction
+) => {
   switch (action.type) {
     case INCREASE_ITEM_COUNT:
       return {
@@ -19,6 +27,10 @@ const checkboxCounterReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         numOfCheckedItem: state.numOfCheckedItem - 1,
+      };
+    case GET_CHECKED_ITEM_COUNT:
+      return {
+        ...state,
       };
 
     default:

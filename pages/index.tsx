@@ -64,8 +64,7 @@ const HomePage = () => {
           marginTop: "20px",
         }}
       >
-        <BtnLoadTodo onClick={loadData} />{" "}
-        <BtnDoneTodo completedTodoCount={4} />
+        <BtnLoadTodo onClick={loadData} /> <BtnDoneTodo />
       </div>
 
       <div

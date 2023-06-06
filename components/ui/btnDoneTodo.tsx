@@ -1,14 +1,16 @@
+import { checkBoxCounter } from "@/redux/reducers/checkboxCounterReducers";
+import { RootState } from "@/redux/store";
 import Button from "@mui/material/Button";
+import { useSelector } from "react-redux";
 
-type BtnDoneTodoProps = {
-  completedTodoCount: number;
-};
+const BtnDoneTodo = () => {
+  const counter: checkBoxCounter = useSelector<RootState, checkBoxCounter>(
+    (state: RootState) => state.checkboxCounter
+  );
 
-const BtnDoneTodo = (props: BtnDoneTodoProps) => {
-  const { completedTodoCount } = props;
   return (
     <Button style={{}} variant="outlined">
-      Done ({completedTodoCount})
+      Done ({counter.numOfCheckedItems})
     </Button>
   );
 };
