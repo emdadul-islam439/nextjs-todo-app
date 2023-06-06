@@ -5,13 +5,7 @@ import NoDataLoadedText from "@/components/events/noDataLoadedText";
 import TodoList from "@/components/ui/todoList";
 import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
-
-type todoProps = {
-  id: number;
-  userId: number;
-  title: string;
-  completed: boolean;
-};
+import { todoProps } from "@/redux/reducers/todoListReducers";
 
 const HomePage = () => {
   const [isLoadDataBtnPressed, setIsLoadDataBtnPressed] = useState(false);
