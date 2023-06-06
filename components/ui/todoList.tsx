@@ -1,17 +1,13 @@
+import { todoList, todoProps } from "@/redux/reducers/todoListReducers";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 import TodoItem from "./todoItem";
 import TodoItemCheckbox from "./todoItemCheckbox";
 
-type todoListProps = {
-  todoList: {
-    id: number;
-    userId: number;
-    title: string;
-    completed: boolean;
-  }[];
-};
-
-const TodoList = (props: todoListProps) => {
-  const { todoList } = props;
+const TodoList = () => {
+  const todoList: todoProps[] = useSelector<RootState, todoProps[]>(
+    (state: RootState) => state.todoList.todoList
+  );
   return (
     <ul>
       {todoList.map((todo) => {

@@ -6,11 +6,16 @@ import TodoList from "@/components/ui/todoList";
 import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { todoProps } from "@/redux/reducers/todoListReducers";
+import { useDispatch, useSelector } from "react-redux";
+import { initItem } from "../redux/actions/todoList/todoListActions";
+import { increaseItemCount } from "../redux/actions/checkBoxCounter/checkBoxCounterActions";
 
 const HomePage = () => {
   const [isLoadDataBtnPressed, setIsLoadDataBtnPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedTodos, setLoadedTodos] = useState<todoProps[]>([]);
+
+  const dispatch = useDispatch();
 
   const loadData = () => {
     setIsLoadDataBtnPressed(true);
@@ -19,6 +24,10 @@ const HomePage = () => {
       setIsLoading(false);
     }
     return true;
+  };
+
+  const saveTodoInfoIntoStore = (todoList: todoProps[]) => {
+    // const numOfCakes = useSelector((state) => state.numOfCakes);
   };
 
   const { data, error } = useSWR<todoProps[]>(
@@ -33,11 +42,14 @@ const HomePage = () => {
     if (data) {
       const todos: todoProps[] = [];
       for (const todo of data) {
+        todo.completed = false;
         todos.push({
           ...todo,
         });
       }
-      setLoadedTodos(todos.slice(0, 10));
+
+      const firstTenItems = todos.slice(0, 10);
+      dispatch(initItem(firstTenItems));
     }
     setIsLoading(false);
   }, [data]);
@@ -69,7 +81,7 @@ const HomePage = () => {
         ) : isLoading ? (
           <LoadingText />
         ) : (
-          <TodoList todoList={loadedTodos} />
+          <TodoList />
         )}
       </div>
     </React.Fragment>
