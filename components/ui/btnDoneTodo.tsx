@@ -6,7 +6,11 @@ type BtnDoneTodoProps = {
 
 const BtnDoneTodo = (props: BtnDoneTodoProps) => {
   const { completedTodoCount } = props;
-  return <Button variant="outlined">Done ({completedTodoCount})</Button>;
+  return (
+    <Button style={{}} variant="outlined">
+      Done ({completedTodoCount})
+    </Button>
+  );
 };
 
 export default BtnDoneTodo;

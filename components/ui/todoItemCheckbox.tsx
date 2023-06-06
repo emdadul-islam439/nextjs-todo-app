@@ -4,9 +4,9 @@ type todoItemCheckboxProps = {
   isCompleted: boolean;
 };
 
-const todoItemCheckbox = (props: todoItemCheckboxProps) => {
+const TodoItemCheckbox = (props: todoItemCheckboxProps) => {
   const { isCompleted } = props;
   return <Checkbox defaultChecked={isCompleted} />;
 };
 
-export default todoItemCheckbox;
+export default TodoItemCheckbox;

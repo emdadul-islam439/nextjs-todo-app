@@ -1,12 +1,29 @@
+import TodoItem from "./todoItem";
+import TodoItemCheckbox from "./todoItemCheckbox";
+
 type todoListProps = {
-  todo: {
-    todoText: string;
-    isCompleted: boolean;
+  todoList: {
+    id: number;
+    userId: number;
+    title: string;
+    completed: boolean;
   }[];
 };
 
-const todoList = (props: todoListProps) => {
-  const { todo } = props;
+const TodoList = (props: todoListProps) => {
+  const { todoList } = props;
+  return (
+    <ul>
+      {todoList.map((todo) => {
+        return (
+          <li key={todo.id}>
+            <TodoItemCheckbox isCompleted={todo.completed} />
+            <TodoItem todoTitle={todo.title} />
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
-export default todoList;
+export default TodoList;

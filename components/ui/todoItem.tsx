@@ -1,10 +1,10 @@
 type todoItemProps = {
-  todoText: string;
+  todoTitle: string;
 };
 
-const todoItem = (props: todoItemProps) => {
-  const { todoText } = props;
-  return <span> {todoText} </span>;
+const TodoItem = (props: todoItemProps) => {
+  const { todoTitle: todotitle } = props;
+  return <span> {todotitle} </span>;
 };
 
-export default todoItem;
+export default TodoItem;
