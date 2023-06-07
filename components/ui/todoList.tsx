@@ -13,7 +13,7 @@ const TodoList = () => {
       {todoList.map((todo) => {
         return (
           <li key={todo.id}>
-            <TodoItemCheckbox isCompleted={todo.completed} />
+            <TodoItemCheckbox itemId={todo.id} isCompleted={todo.completed} />
             <TodoItem todoTitle={todo.title} />
           </li>
         );

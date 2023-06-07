@@ -21,12 +21,12 @@ const checkboxCounterReducer = (
     case INCREASE_ITEM_COUNT:
       return {
         ...state,
-        numOfCheckedItem: state.numOfCheckedItem + 1,
+        numOfCheckedItems: state.numOfCheckedItems + 1,
       };
     case DECREASE_ITEM_COUNT:
       return {
         ...state,
-        numOfCheckedItem: state.numOfCheckedItem - 1,
+        numOfCheckedItems: state.numOfCheckedItems - 1,
       };
     case GET_CHECKED_ITEM_COUNT:
       return {

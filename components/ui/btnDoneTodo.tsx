@@ -7,7 +7,7 @@ const BtnDoneTodo = () => {
   const counter: checkBoxCounter = useSelector<RootState, checkBoxCounter>(
     (state: RootState) => state.checkboxCounter
   );
-
+  console.log("btnDoneTodo: counter: " + counter.numOfCheckedItems);
   return (
     <Button style={{}} variant="outlined">
       Done ({counter.numOfCheckedItems})

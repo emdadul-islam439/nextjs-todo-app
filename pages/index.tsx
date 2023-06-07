@@ -9,26 +9,33 @@ import { todoProps } from "@/redux/reducers/todoListReducers";
 import { useDispatch, useSelector } from "react-redux";
 import { initItem } from "../redux/actions/todoList/todoListActions";
 import { increaseItemCount } from "../redux/actions/checkBoxCounter/checkBoxCounterActions";
+import { homePageStatus } from "@/redux/reducers/homePageReducers";
+import { RootState } from "@/redux/store";
+import {
+  enableDataBtnPressed,
+  enableLoading,
+  disableLoading,
+} from "../redux/actions/homePage/homePageActions";
 
 const HomePage = () => {
-  const [isLoadDataBtnPressed, setIsLoadDataBtnPressed] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadedTodos, setLoadedTodos] = useState<todoProps[]>([]);
-
   const dispatch = useDispatch();
+  const homePageInfo: homePageStatus = useSelector<RootState, homePageStatus>(
+    (state: RootState) => state.homePageStatus
+  );
+  console.log("HomePageStatus----------->");
+  console.log(homePageInfo);
 
-  const loadData = () => {
-    setIsLoadDataBtnPressed(true);
-    setIsLoading(true);
-    if (loadedTodos) {
-      setIsLoading(false);
-    }
-    return true;
-  };
+  //   const [isLoadDataBtnPressed, setIsLoadDataBtnPressed] = useState(false);
+  //   const [finishedSavingTodos, setLoadedTodos] = useState<todoProps[]>([]);
 
-  const saveTodoInfoIntoStore = (todoList: todoProps[]) => {
-    // const numOfCakes = useSelector((state) => state.numOfCakes);
-  };
+  //   const loadData = () => {
+  //     setIsLoadDataBtnPressed(true);
+  //     setIsLoading(true);
+  //     if (finishedSavingTodos) {
+  //       setIsLoading(false);
+  //     }
+  //     return true;
+  //   };
 
   const { data, error } = useSWR<todoProps[]>(
     "https://jsonplaceholder.typicode.com/todos",
@@ -38,7 +45,17 @@ const HomePage = () => {
   console.log("data:", data);
   useEffect(() => {
     console.log("inside useEffect.....");
-    setIsLoading(true);
+    // setIsLoading(true);
+    dispatch(enableLoading());
+
+    if (homePageInfo.isDataBtnPressed) {
+      dispatch(enableDataBtnPressed());
+      dispatch(enableLoading());
+      if (homePageInfo.isTodoSavingFinished) {
+        dispatch(disableLoading());
+      }
+    }
+
     if (data) {
       const todos: todoProps[] = [];
       for (const todo of data) {
@@ -51,8 +68,9 @@ const HomePage = () => {
       const firstTenItems = todos.slice(0, 10);
       dispatch(initItem(firstTenItems));
     }
-    setIsLoading(false);
-  }, [data]);
+    // setIsLoading(false);
+    dispatch(disableLoading());
+  }, [data, homePageInfo.isDataBtnPressed]);
 
   return (
     <React.Fragment>
@@ -64,7 +82,7 @@ const HomePage = () => {
           marginTop: "20px",
         }}
       >
-        <BtnLoadTodo onClick={loadData} /> <BtnDoneTodo />
+        <BtnLoadTodo /> <BtnDoneTodo />
       </div>
 
       <div
@@ -75,9 +93,9 @@ const HomePage = () => {
           marginTop: "100px",
         }}
       >
-        {!isLoadDataBtnPressed ? (
+        {!homePageInfo.isDataBtnPressed ? (
           <NoDataLoadedText />
-        ) : isLoading ? (
+        ) : homePageInfo.isLoading ? (
           <LoadingText />
         ) : (
           <TodoList />
