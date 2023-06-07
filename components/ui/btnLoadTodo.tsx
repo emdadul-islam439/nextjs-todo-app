@@ -1,6 +1,15 @@
+import {
+  initItem,
+  todoListUpdate,
+} from "@/redux/actions/todoList/todoListActions";
+import { todoProps } from "@/redux/reducers/todoListReducers";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { enableDataBtnPressed } from "../../redux/actions/homePage/homePageActions";
+
+import {
+  enableDataBtnPressed,
+  enableLoadedTodos,
+} from "../../redux/actions/homePage/homePageActions";
 
 const BtnLoadTodo = () => {
   const dispatch = useDispatch();
@@ -11,7 +20,10 @@ const BtnLoadTodo = () => {
       }}
       variant="contained"
       //   onClick={props.onClick}
-      onClick={() => dispatch(enableDataBtnPressed())}
+      onClick={() => {
+        dispatch(todoListUpdate());
+        dispatch(enableDataBtnPressed());
+      }}
     >
       Load Todo
     </Button>

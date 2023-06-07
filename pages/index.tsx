@@ -37,12 +37,12 @@ const HomePage = () => {
   //     return true;
   //   };
 
-  const { data, error } = useSWR<todoProps[]>(
-    "https://jsonplaceholder.typicode.com/todos",
-    (url) => fetch(url).then((res) => res.json())
-  );
+  // const { data, error } = useSWR<todoProps[]>(
+  //   "https://jsonplaceholder.typicode.com/todos",
+  //   (url) => fetch(url).then((res) => res.json())
+  // );
 
-  console.log("data:", data);
+  // console.log("data:", data);
   useEffect(() => {
     console.log("inside useEffect.....");
     // setIsLoading(true);
@@ -55,22 +55,8 @@ const HomePage = () => {
         dispatch(disableLoading());
       }
     }
-
-    if (data) {
-      const todos: todoProps[] = [];
-      for (const todo of data) {
-        todo.completed = false;
-        todos.push({
-          ...todo,
-        });
-      }
-
-      const firstTenItems = todos.slice(0, 10);
-      dispatch(initItem(firstTenItems));
-    }
-    // setIsLoading(false);
     dispatch(disableLoading());
-  }, [data, homePageInfo.isDataBtnPressed]);
+  }, [homePageInfo.isDataBtnPressed, homePageInfo.isTodoSavingFinished]);
 
   return (
     <React.Fragment>
